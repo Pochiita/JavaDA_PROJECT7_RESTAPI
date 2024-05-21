@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
