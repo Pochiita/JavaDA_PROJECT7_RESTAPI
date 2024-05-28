@@ -1,55 +1,90 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.dto.BidListDTO;
+import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.services.BidListService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
+import java.util.List;
 
 
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
 
+    @Autowired
+    BidListService bidListService;
+
+    @Autowired
+    BidListRepository bidListRepository;
+
+    /**
+     * This method retrieves all the bids from the database and displays them in a table
+     *
+     * @param model The model object to which attributes are added for rendering data in the view
+     * @return The template name "bidList/list" to display all the bids in a table
+     */
     @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
-        // TODO: call service find all bids to show to the view
+    public String home(Model model) {
+        List<BidList> bidLists = bidListService.displayAllBids();
+        UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user",currentUser);
+        model.addAttribute("bidLists",bidLists);
         return "bidList/list";
     }
 
+    /**
+     * This method is used to display the form to add a new bid.
+     * @param bid the BidList object to be added
+     * @return the name of the HTML template to be displayed (bidList/add)
+     **/
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid) {
+    public String addBidForm(BidList bid,Model model) {
+        /*BidListDTO bid_form = new BidListDTO();
+        model.addAttribute("bidList",bid_form);*/
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
-        return "bidList/add";
+    public String validate(@Valid @ModelAttribute("bidList") BidList bidList, BindingResult result, Model model) {
+        if(result.hasErrors() || result.hasFieldErrors()){
+            model.addAttribute("bidList", bidList); // Re-add the form data to the model in case of validation errors
+            return "bidList/add";
+        }
+        bidListService.saveBid(bidList);
+        return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
+
+        BidList bid = bidListRepository.findById(id).orElseThrow(()->new RuntimeException("Bid list not found with Id: "+id));
+        model.addAttribute("bidList",bid);
         return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
+    public String updateBid(@PathVariable("id") Integer id, @Valid @ModelAttribute("bidList") BidList bidList,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
+        if (result.hasErrors() || result.hasFieldErrors()){
+            model.addAttribute("bidList",bidList);
+            return "bidList/update/"+id;
+        }
+
+        bidListService.updateBid(id,bidList);
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
+        bidListService.deleteBid(id);
         return "redirect:/bidList/list";
     }
 }

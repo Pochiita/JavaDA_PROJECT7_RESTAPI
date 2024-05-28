@@ -5,13 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import java.sql.Date;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -21,12 +21,18 @@ import java.sql.Timestamp;
 public class BidList {
     @GeneratedValue
     @Id
-    Integer BidListId;
+    Integer id;
     @Column(nullable = false)
+    @NotNull
+    @NotEmpty
     String account;
     @Column(nullable = false)
+    @NotNull
+    @NotEmpty
     String type;
     @Column(nullable = false)
+    @Positive
+    @NotNull
     Double bidQuantity;
     Double askQuantity;
     Double bid;
