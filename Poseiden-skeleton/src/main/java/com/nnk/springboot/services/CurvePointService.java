@@ -23,7 +23,7 @@ public class CurvePointService {
     }
 
     public void updateCurvePoint(Integer id, CurvePoint curve){
-        CurvePoint curveFromDb = curvePointRepository.findById(id).orElseThrow(()->new RuntimeException("curvePoint list not found with Id: "+id));
+        CurvePoint curveFromDb = curvePointRepository.findById(id).orElseThrow(()->new RuntimeException("curvePoint not found with Id: "+id));
         curveFromDb.setTerm(curve.getTerm());
         curveFromDb.setValue(curve.getValue());
         saveCurvePoint(curveFromDb);

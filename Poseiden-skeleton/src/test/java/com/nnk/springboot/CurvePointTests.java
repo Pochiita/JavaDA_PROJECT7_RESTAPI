@@ -1,10 +1,7 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.repositories.CurvePointRepository;
-import com.nnk.springboot.services.BidListService;
 import com.nnk.springboot.services.CurvePointService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -41,7 +38,7 @@ public class CurvePointTests {
 
     }
     @Test
-    public void deleteBidList(){
+    public void deleteCurve(){
         Optional<CurvePoint> bid = curvePointRepository.findById(curveId);
         if(bid.isPresent()) {
             curvePointService.deleteBid(curveId);
