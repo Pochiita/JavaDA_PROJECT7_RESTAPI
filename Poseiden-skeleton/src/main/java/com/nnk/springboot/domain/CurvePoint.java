@@ -1,15 +1,16 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Size;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
@@ -21,12 +22,15 @@ public class CurvePoint {
     @GeneratedValue
     @Id
     Integer id;
-    @Column(nullable = false)
     Integer curveId;
     Timestamp asOfDate;
     @Column(nullable = false)
+    @Positive
+    @NotNull
     Double term;
     @Column(nullable = false)
+    @Positive
+    @NotNull
     Double value;
     Timestamp creationDate;
 

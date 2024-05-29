@@ -1,0 +1,52 @@
+package com.nnk.springboot;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.services.BidListService;
+import com.nnk.springboot.services.CurvePointService;
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
+
+@SpringBootTest
+public class CurvePointTests {
+
+    @Autowired
+    CurvePointService curvePointService;
+
+    @Autowired
+    CurvePointRepository curvePointRepository;
+
+    static int curveId;
+
+    @Test
+    public  void saveAndUpdateCurve(){
+
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setTerm(12.0);
+        curvePoint.setValue(13.0);
+        CurvePoint savedCurvePoint = curvePointService.saveCurvePoint(curvePoint);
+        Assert.assertEquals(curvePoint,savedCurvePoint);
+
+        savedCurvePoint.setValue(15.0);
+        savedCurvePoint.setTerm(15.0);
+        CurvePoint afterUpdate = curvePointService.saveCurvePoint(savedCurvePoint);
+        curveId = afterUpdate.getId();
+        Assert.assertEquals(15.0, afterUpdate.getTerm(), 0.001);
+
+    }
+    @Test
+    public void deleteBidList(){
+        Optional<CurvePoint> bid = curvePointRepository.findById(curveId);
+        if(bid.isPresent()) {
+            curvePointService.deleteBid(curveId);
+            Assert.assertFalse(curvePointRepository.findById(curveId).isPresent());
+        }
+    }
+
+}

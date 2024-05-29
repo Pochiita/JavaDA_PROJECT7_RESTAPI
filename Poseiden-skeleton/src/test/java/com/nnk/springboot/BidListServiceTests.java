@@ -19,7 +19,6 @@ public class BidListServiceTests {
     @Autowired
     BidListRepository bidListRepository;
 
-    BidList bid = new BidList();
     static int bid_id;
 
     @Test
@@ -32,11 +31,12 @@ public class BidListServiceTests {
         BidList saved_bid = bidListService.saveBid(bid);
         Assert.assertEquals(bid,saved_bid);
 
-        bid.setAccount("Updated For Test");
-        bid.setType("Updated For Test");
-        bid.setBidQuantity(230.0);
-        bid_id = saved_bid.getId();
-        Assert.assertEquals("Updated For Test", saved_bid.getAccount());
+        saved_bid.setAccount("Updated For Test");
+        saved_bid.setType("Updated For Test");
+        saved_bid.setBidQuantity(230.0);
+        BidList afterUpdate = bidListService.saveBid(saved_bid);
+        bid_id = afterUpdate.getId();
+        Assert.assertEquals("Updated For Test", afterUpdate.getAccount());
 
     }
     @Test
