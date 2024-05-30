@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.nnk.springboot.RuleTests" time="0.114" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.nnk.springboot.TradeTests" time="0.089" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -64,18 +64,18 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="deleteRuleName" classname="com.nnk.springboot.RuleTests" time="0.021">
-    <system-out><![CDATA[2024-05-30T03:07:32.629+02:00  INFO 11176 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.nnk.springboot.RuleTests]: RuleTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-05-30T03:07:32.633+02:00  INFO 11176 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.nnk.springboot.Application for test class com.nnk.springboot.RuleTests
-Hibernate: select r1_0.id,r1_0.description,r1_0.json,r1_0.name,r1_0.sql_part,r1_0.sql_str,r1_0.template from rule_name r1_0 where r1_0.id=?
+  <testcase name="deleteRuleName" classname="com.nnk.springboot.TradeTests" time="0.014">
+    <system-out><![CDATA[2024-05-30T03:07:32.748+02:00  INFO 11176 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.nnk.springboot.TradeTests]: TradeTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-05-30T03:07:32.751+02:00  INFO 11176 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.nnk.springboot.Application for test class com.nnk.springboot.TradeTests
+Hibernate: select t1_0.id,t1_0.account,t1_0.benchmark,t1_0.book,t1_0.buy_price,t1_0.buy_quantity,t1_0.creation_date,t1_0.creation_name,t1_0.deal_name,t1_0.deal_type,t1_0.revision_date,t1_0.revision_name,t1_0.security,t1_0.sell_price,t1_0.sell_quantity,t1_0.side,t1_0.source_list_id,t1_0.status,t1_0.trade_date,t1_0.trader,t1_0.type from trade t1_0 where t1_0.id=?
 ]]></system-out>
   </testcase>
-  <testcase name="saveAndUpdateRuleName" classname="com.nnk.springboot.RuleTests" time="0.071">
-    <system-out><![CDATA[Hibernate: select next_val as id_val from rule_name_seq for update
-Hibernate: update rule_name_seq set next_val= ? where next_val=?
-Hibernate: insert into rule_name (description,json,name,sql_part,sql_str,template,id) values (?,?,?,?,?,?,?)
-Hibernate: select r1_0.id,r1_0.description,r1_0.json,r1_0.name,r1_0.sql_part,r1_0.sql_str,r1_0.template from rule_name r1_0 where r1_0.id=?
-Hibernate: update rule_name set description=?,json=?,name=?,sql_part=?,sql_str=?,template=? where id=?
+  <testcase name="saveAndUpdateRuleName" classname="com.nnk.springboot.TradeTests" time="0.056">
+    <system-out><![CDATA[Hibernate: select next_val as id_val from trade_seq for update
+Hibernate: update trade_seq set next_val= ? where next_val=?
+Hibernate: insert into trade (account,benchmark,book,buy_price,buy_quantity,creation_date,creation_name,deal_name,deal_type,revision_date,revision_name,security,sell_price,sell_quantity,side,source_list_id,status,trade_date,trader,type,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select t1_0.id,t1_0.account,t1_0.benchmark,t1_0.book,t1_0.buy_price,t1_0.buy_quantity,t1_0.creation_date,t1_0.creation_name,t1_0.deal_name,t1_0.deal_type,t1_0.revision_date,t1_0.revision_name,t1_0.security,t1_0.sell_price,t1_0.sell_quantity,t1_0.side,t1_0.source_list_id,t1_0.status,t1_0.trade_date,t1_0.trader,t1_0.type from trade t1_0 where t1_0.id=?
+Hibernate: update trade set account=?,benchmark=?,book=?,buy_price=?,buy_quantity=?,creation_date=?,creation_name=?,deal_name=?,deal_type=?,revision_date=?,revision_name=?,security=?,sell_price=?,sell_quantity=?,side=?,source_list_id=?,status=?,trade_date=?,trader=?,type=? where id=?
 ]]></system-out>
   </testcase>
 </testsuite>

@@ -1,7 +1,11 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -16,11 +20,18 @@ import java.sql.Timestamp;
 public class Trade {
     @GeneratedValue
     @Id
-    Integer tradeId;
+    Integer id;
     @Column(nullable = false)
+    @NotNull
+    @NotEmpty
     String account;
     @Column(nullable = false)
+    @NotNull
+    @NotEmpty
     String type;
+    @Column(nullable = false)
+    @Positive
+    @NotNull
     Double buyQuantity;
     Double sellQuantity;
     Double buyPrice;

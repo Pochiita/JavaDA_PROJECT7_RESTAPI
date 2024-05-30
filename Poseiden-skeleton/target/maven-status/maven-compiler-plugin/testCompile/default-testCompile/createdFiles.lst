@@ -1,4 +1,5 @@
 com\nnk\springboot\BidListServiceTests.class
 com\nnk\springboot\CurvePointTests.class
 com\nnk\springboot\RatingTests.class
+com\nnk\springboot\TradeTests.class
 com\nnk\springboot\RuleTests.class
