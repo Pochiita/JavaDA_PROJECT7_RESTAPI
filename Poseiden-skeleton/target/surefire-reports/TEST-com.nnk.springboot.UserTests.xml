@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.nnk.springboot.CurvePointTests" time="0.214" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.nnk.springboot.UserTests" time="0.381" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -64,18 +64,18 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="deleteCurve" classname="com.nnk.springboot.CurvePointTests" time="0.034">
-    <system-out><![CDATA[2024-06-03T09:13:15.719+02:00  INFO 15796 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.nnk.springboot.CurvePointTests]: CurvePointTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-06-03T09:13:15.726+02:00  INFO 15796 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.nnk.springboot.Application for test class com.nnk.springboot.CurvePointTests
-Hibernate: select c1_0.id,c1_0.as_of_date,c1_0.creation_date,c1_0.curve_id,c1_0.term,c1_0.value from curve_point c1_0 where c1_0.id=?
+  <testcase name="deleteRuleName" classname="com.nnk.springboot.UserTests" time="0.018">
+    <system-out><![CDATA[2024-06-03T09:13:16.645+02:00  INFO 15796 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.nnk.springboot.UserTests]: UserTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-06-03T09:13:16.649+02:00  INFO 15796 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.nnk.springboot.Application for test class com.nnk.springboot.UserTests
+Hibernate: select u1_0.id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0 where u1_0.id=?
 ]]></system-out>
   </testcase>
-  <testcase name="saveAndUpdateCurve" classname="com.nnk.springboot.CurvePointTests" time="0.149">
-    <system-out><![CDATA[Hibernate: select next_val as id_val from curve_point_seq for update
-Hibernate: update curve_point_seq set next_val= ? where next_val=?
-Hibernate: insert into curve_point (as_of_date,creation_date,curve_id,term,value,id) values (?,?,?,?,?,?)
-Hibernate: select c1_0.id,c1_0.as_of_date,c1_0.creation_date,c1_0.curve_id,c1_0.term,c1_0.value from curve_point c1_0 where c1_0.id=?
-Hibernate: update curve_point set as_of_date=?,creation_date=?,curve_id=?,term=?,value=? where id=?
+  <testcase name="saveAndUpdateRuleName" classname="com.nnk.springboot.UserTests" time="0.348">
+    <system-out><![CDATA[Hibernate: select next_val as id_val from user_seq for update
+Hibernate: update user_seq set next_val= ? where next_val=?
+Hibernate: insert into user (fullname,password,role,username,id) values (?,?,?,?,?)
+Hibernate: select u1_0.id,u1_0.fullname,u1_0.password,u1_0.role,u1_0.username from user u1_0 where u1_0.id=?
+Hibernate: update user set fullname=?,password=?,role=?,username=? where id=?
 ]]></system-out>
   </testcase>
 </testsuite>

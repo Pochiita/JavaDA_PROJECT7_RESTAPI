@@ -31,12 +31,14 @@ public class SecurityConfig {
                         request
                                 .requestMatchers("/login","/register").anonymous() //Allowing only non-logged users to reach this page
                                 .requestMatchers("/").permitAll() // Allow every user to reach homepage or login page
-                                .requestMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**", "/app/error", "/app/logout").hasAnyAuthority("ADMIN", "USER") // Allow every logged user that has 'USER' or 'ADMIN' role to reach every page related to the entities
+                                .requestMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**", "/app/error", "/app-logout").hasAnyAuthority("ADMIN", "USER") // Allow every logged user that has 'USER' or 'ADMIN' role to reach every page related to the entities
                                 .requestMatchers("/user/**", "/admin/**").hasAuthority("ADMIN") // Allowing some page for only "ADMIN" role
                                 .anyRequest().authenticated()) // Any other request you need to be authenticated
-                .formLogin(Customizer.withDefaults())
+                .formLogin(formLogin -> formLogin
+                    .loginPage("/login")
+                        .defaultSuccessUrl("/bidList/list"))
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/app-logout")
                 )
                 .csrf().disable();
         return http.build();
