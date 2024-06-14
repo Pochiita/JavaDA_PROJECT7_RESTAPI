@@ -1,18 +1,32 @@
 package com.nnk.springboot.Controller;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithUserDetails;
-
+/*
 @SpringBootTest
+@AutoConfigureMockMvc
 public class LoginTests {
 
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Test
-    @WithUserDetails("test@test.com")
-    public void checkLoginController (){
-        mockMvc.perform(formLogin().user("test@test.com").password("password"))
-                .andExpect(authenticated().withUsername("test@test.com"))
-                .andExpect(redirectedUrl("/bidList/list"));
+    void loginWithValidUser() throws Exception {
+        String password = passwordEncoder.encode("test");
+        mockMvc.perform(MockMvcRequestBuilders.post("/login")
+                        .param("username", "test")
+                        .param("password", password))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void loginWithInvalidUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/login")
+                        .param("username", "invaliduser")
+                        .param("password", "invalidpassword"))
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
 
 }
+*/

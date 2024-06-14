@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,11 +33,13 @@ public class SecurityConfig {
                                 .requestMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**", "/app/error", "/app-logout").hasAnyAuthority("ADMIN", "USER") // Allow every logged user that has 'USER' or 'ADMIN' role to reach every page related to the entities
                                 .requestMatchers("/user/**", "/admin/**").hasAuthority("ADMIN") // Allowing some page for only "ADMIN" role
                                 .anyRequest().authenticated()) // Any other request you need to be authenticated
-                .formLogin(formLogin -> formLogin
-                    .loginPage("/login")
-                        .defaultSuccessUrl("/bidList/list"))
+                .formLogin(login ->
+                        login
+                                .defaultSuccessUrl("/bidList/list") // Redirect to /dashboard after successful login
+                                .permitAll()
+                )
                 .logout(logout -> logout
-                        .logoutUrl("/app-logout")
+                        .logoutUrl("/logout")
                 )
                 .csrf().disable();
         return http.build();
