@@ -21,8 +21,11 @@ public class SecurityConfig {
     CustomUserDetailsService customUserDetailsService;
 
     /**
-     * Configure SpringSecurity login system
-     */
+
+     Creates a SecurityFilterChain for handling security configurations in the application.
+     @param http the HttpSecurity object to configure security settings
+     @return the SecurityFilterChain with specified security configurations
+     @throws Exception if unable to set security configurations */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -55,6 +58,14 @@ public class SecurityConfig {
     }
 
 
+    /**
+
+     This method creates an AuthenticationManager bean and configures it with the provided HttpSecurity object and BCryptPasswordEncoder.
+     It sets the userDetailsService with customUserDetailsService and passwordEncoder with bCryptPasswordEncoder.
+     @param http the HttpSecurity object used to configure the AuthenticationManagerBuilder
+     @param bCryptPasswordEncoder the BCryptPasswordEncoder used to encode passwords
+     @return the configured AuthenticationManager object
+     @throws Exception if an error occurs during the configuration process */
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);

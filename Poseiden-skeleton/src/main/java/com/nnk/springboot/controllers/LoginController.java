@@ -14,12 +14,17 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+
+     This method is used to display the login page.
+     @return the ModelAndView object with the view name set to "login" **/
     @GetMapping("login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         return mav;
     }
+
 
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {

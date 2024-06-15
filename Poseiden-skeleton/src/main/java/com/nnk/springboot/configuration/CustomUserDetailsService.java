@@ -19,9 +19,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     /**
-     * Recover users in database and create a new UserDetails with the details of
-     * our users and his authorities
-     */
+
+     This method overrides the loadUserByUsername method from the UserDetailsService interface.
+     It loads a user by their username from the UserRepository and creates a UserDetails object using the User entity.
+     If the user is not found, it throws a UsernameNotFoundException.
+     @param username The username of the user to load
+     @return UserDetails object representing the user
+     @throws UsernameNotFoundException If the user is not found in the UserRepository */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
@@ -31,6 +35,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getGrantedAuthorities(user.getRole()));
     }
 
+    /**
+
+     Returns a list of GrantedAuthority objects for the given role.
+     @param role the role for which GrantedAuthority objects are to be created
+     @return a list of GrantedAuthority objects containing a single SimpleGrantedAuthority object for the given role */
     private List<GrantedAuthority> getGrantedAuthorities(String role) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));

@@ -49,6 +49,13 @@ public class BidListController {
         return "bidList/add";
     }
 
+    /**
+     * This method is used to validate the bid form data and save the bid if there are no validation errors.
+     * @param bidList the BidList object to be validated and saved
+     * @param result the BindingResult object to hold validation errors
+     * @param model the Model object to add attributes
+     * @return the name of the HTML template to be displayed (bidList/add or redirect:/bidList/list)
+     **/
     @PostMapping("/bidList/validate")
     public String validate(@Valid @ModelAttribute("bidList") BidList bidList, BindingResult result, Model model) {
         if(result.hasErrors() || result.hasFieldErrors()){
@@ -59,6 +66,12 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
+    /**
+     * This method is used to display the form to update an existing bid.
+     * @param id the id of the bid to be updated
+     * @param model the Model object to add attributes
+     * @return the name of the HTML template to be displayed (bidList/update)
+     **/
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
@@ -67,6 +80,14 @@ public class BidListController {
         return "bidList/update";
     }
 
+    /**
+     * This method is used to update a bid with the provided id, after validating the form data.
+     * @param id the id of the bid to be updated
+     * @param bidList the BidList object with updated data
+     * @param result the BindingResult object to hold validation errors
+     * @param model the Model object to add attributes
+     * @return the name of the HTML template to be displayed (bidList/update or redirect:/bidList/list)
+     **/
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid @ModelAttribute("bidList") BidList bidList,
                              BindingResult result, Model model) {
@@ -79,6 +100,12 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
+    /**
+     * This method is used to delete a bid with the provided id.
+     * @param id the id of the bid to be deleted
+     * @param model the Model object to add attributes
+     * @return the name of the HTML template to be displayed (redirect:/bidList/list)
+     **/
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         bidListService.deleteBid(id);
