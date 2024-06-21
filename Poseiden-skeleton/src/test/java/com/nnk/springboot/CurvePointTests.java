@@ -4,13 +4,17 @@ import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.services.CurvePointService;
 import org.junit.Assert;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CurvePointTests {
 
     @Autowired
@@ -22,6 +26,8 @@ public class CurvePointTests {
     static int curveId;
 
     @Test
+    @Order(1)
+
     public  void saveAndUpdateCurve(){
 
         CurvePoint curvePoint = new CurvePoint();
@@ -38,6 +44,8 @@ public class CurvePointTests {
 
     }
     @Test
+    @Order(2)
+
     public void deleteCurve(){
         Optional<CurvePoint> bid = curvePointRepository.findById(curveId);
         if(bid.isPresent()) {

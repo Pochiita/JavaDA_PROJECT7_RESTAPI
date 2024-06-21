@@ -4,13 +4,17 @@ import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.services.RatingService;
 import org.junit.Assert;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RatingTests {
 
     @Autowired
@@ -22,6 +26,8 @@ public class RatingTests {
     static int ratingId;
 
     @Test
+    @Order(1)
+
     public  void saveAndUpdateRating(){
 
         Rating rating = new Rating();
@@ -41,6 +47,8 @@ public class RatingTests {
         Assert.assertEquals("Updated for test", afterUpdate.getFitchRating());
     }
     @Test
+    @Order(2)
+
     public void deleteRating(){
         Optional<Rating> rating = ratingRepository.findById(ratingId);
         if(rating.isPresent()) {

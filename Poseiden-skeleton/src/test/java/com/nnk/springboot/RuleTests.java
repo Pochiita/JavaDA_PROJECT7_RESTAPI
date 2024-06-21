@@ -1,20 +1,20 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.repositories.RuleNameRepository;
-import com.nnk.springboot.services.RatingService;
 import com.nnk.springboot.services.RuleNameService;
 import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RuleTests {
 
     @Autowired
@@ -26,6 +26,8 @@ public class RuleTests {
     static int ruleNameId;
 
     @Test
+    @Order(1)
+
     public  void saveAndUpdateRuleName(){
 
         RuleName ruleName = new RuleName();
@@ -51,6 +53,8 @@ public class RuleTests {
 
     }
     @Test
+    @Order(2)
+
     public void deleteRuleName(){
         Optional<RuleName> rating = ruleNameRepository.findById(ruleNameId);
         if(rating.isPresent()) {
